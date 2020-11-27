@@ -1,0 +1,8 @@
+rabbitmq:
+  addresses: rabbitmq:5672
+  username: admin
+  password: 23456
+  virtual-host: /
+  exchange: Topic.Vehicle.DI
+  routingkey: RK.LOC.TK
+  queue: positionQueue

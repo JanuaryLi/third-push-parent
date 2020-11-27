@@ -1,0 +1,41 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /
+  shutdown: immediate
+spring:
+  profiles:
+    active: native
+  security:
+    user:
+      name: admin
+      password: 123
+  jmx:
+    default-domain: /config-server
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: file:D:\IDEAProject\third-push-config
+eureka:
+  instance:
+    instance-id: config-server
+    prefer-ip-address: true
+    metadata-map:
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
+      management.context-path: ${server.servlet.context-path}/actuactor
+  client:
+    service-url:
+      defaultZone: http://admin:123@127.0.0.1:8080/eureka/
+    fetch-registry: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always

@@ -1,0 +1,35 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+  shutdown: immediate
+spring:
+  application:
+    name: eureka-server
+  security:
+    user:
+      name: admin
+      password: 123
+  jmx:
+    default-domain: eureka-server
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: false
+    service-url:
+      defaultZone: http://admin:123@127.0.0.1:8080/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: eureka-server
+    metadata-map:
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
+      management.context-path: ${server.servlet.context-path}/actuactor
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
